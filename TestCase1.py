@@ -1,2 +1,1 @@
-import Graph_Library
-
+from Graph_Library import *

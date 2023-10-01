@@ -6,6 +6,9 @@ class Graph:
         self.list_vertices = list_vertices
         self.list_edges = list_edges
 
+    # def addEdge():
+
+    
 class Vertex:
     def __init__(self,x_coord,y_coord,list_adj_vertices,vertex_type):
         self.x_coord = x_coord
