@@ -1,5 +1,5 @@
-WALL_VERTEX = 0
-BOUNDARY_VERTEX = 1
+WALL = 0
+BOUNDARY = 1
 
 class Vertex:
     def __init__(self,x_coord,y_coord,list_adj_vertices,vertex_type):
