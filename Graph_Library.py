@@ -7,12 +7,14 @@ class Graph:
         self.max_length = max_length
         self.max_breadth = max_breadth
         self.list_vertices = [[0 for i in range(max_breadth+1)] for j in range(max_length+1)]
+        self.test_bed = [[' ' for i in range(max_breadth+1)] for j in range(max_length+1)]
 
     def addVertice(self,x1,y1,vertex_type):
         if(self.list_vertices[y1][x1] != 0):
             return -1
         else:
             self.list_vertices[y1][x1] = Vertex(y1,x1,vertex_type)
+            self.test_bed[y1][x1] = '1'
 
     def addEdge(self,x1,y1,x2,y2,edge_type):
         if(self.list_vertices[y1][x1] == 0 or self.list_vertices[y2][x2] == 0):
