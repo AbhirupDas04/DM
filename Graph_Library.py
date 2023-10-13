@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 WALL = 0
 BOUNDARY = 1
 
@@ -27,6 +29,20 @@ class Graph:
         self.list_edges.append(edge)
         self.list_vertices[y1][x1].list_adj_vertices.append(self.list_vertices[y2][x2])
         self.list_vertices[y2][x2].list_adj_vertices.append(self.list_vertices[y1][x1])
+    def displayGraph(self):
+        plt.title('Art Gallery')
+        for edge in self.list_edges:
+            x1 = edge.vertex_1.y_coord
+            y1 = -edge.vertex_1.x_coord  # Mirrored Y-coordinate
+            x2 = edge.vertex_2.y_coord
+            y2 = -edge.vertex_2.x_coord  # Mirrored Y-coordinate
+
+            plt.plot([x1, x2], [y1, y2], c='g', linewidth=1)  # Connect the vertices with a green line
+
+        # Show the plot
+        plt.axis('off')
+        plt.show()
+
     
 class Vertex:
     def __init__(self,x_coord,y_coord,vertex_type):
@@ -46,3 +62,6 @@ class Edge:
         self.vertex_1 = vertex_1
         self.vertex_2 = vertex_2
         self.edge_type = edge_type
+
+    def __repr__(self):
+        return f"({self.vertex_1} - {self.vertex_2})"
