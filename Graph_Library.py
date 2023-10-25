@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 WALL = 0
 BOUNDARY = 1
@@ -33,15 +34,43 @@ class Graph:
         plt.title('Art Gallery')
         for edge in self.list_edges:
             x1 = edge.vertex_1.y_coord
-            y1 = -edge.vertex_1.x_coord  # Mirrored Y-coordinate
+            y1 = -edge.vertex_1.x_coord 
             x2 = edge.vertex_2.y_coord
-            y2 = -edge.vertex_2.x_coord  # Mirrored Y-coordinate
-
-            plt.plot([x1, x2], [y1, y2], c='g', linewidth=1)  # Connect the vertices with a green line
-
-        # Show the plot
+            y2 = -edge.vertex_2.x_coord 
+            plt.plot([x1, x2], [y1, y2], c='g', linewidth=1)
         plt.axis('off')
         plt.show()
+    def textGenerate(path):
+        
+        with open(path,'r') as file:
+            x = []          # list of x coordinates
+            y = []          # list of y coordinates  
+            k = file.readlines()
+            for i in k:
+                a = i.split()
+                x.append(int(a[0]))
+                y.append(int(a[1]))
+        max_length = max(y)
+        max_breadth = max(x)
+        gr = Graph(max_length, max_breadth)
+        #print(gr.test_bed)
+        for i in range(len(x)):
+            gr.addVertice(x[i], y[i], BOUNDARY)
+            if i > 0:
+                gr.addEdge(x[i - 1], y[i - 1], x[i], y[i], WALL)
+            if i == len(x) - 1:
+                gr.addEdge(x[i], y[i], x[0], y[0], WALL)
+        return gr
+
+
+        '''
+        #Displaying the generated graph
+        plt.scatter(x, y, marker='o', color='g', label='Data Points')
+        polygon = patches.Polygon(list(zip(x, y)), closed=True, fill=None, edgecolor='g', lw=2, label='Polygon Border')
+        plt.gca().add_patch(polygon)
+        plt.title('From text file')
+        plt.axis('off')
+        plt.show()'''
 
     
 class Vertex:
