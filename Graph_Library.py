@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from matplotlib.patches import Polygon
 
 WALL = 0
 BOUNDARY = 1
@@ -61,17 +62,55 @@ class Graph:
             if i == len(x) - 1:
                 gr.addEdge(x[i], y[i], x[0], y[0], WALL)
         return gr
+    def onClick():
+        global OCvertices, OCpolygon, OCall_vertices
 
+        OCvertices = []
+        OCpolygon = None
+        OCall_vertices = []
 
-        '''
-        #Displaying the generated graph
-        plt.scatter(x, y, marker='o', color='g', label='Data Points')
-        polygon = patches.Polygon(list(zip(x, y)), closed=True, fill=None, edgecolor='g', lw=2, label='Polygon Border')
-        plt.gca().add_patch(polygon)
-        plt.title('From text file')
-        plt.axis('off')
-        plt.show()'''
+        def on_click(event):
+            global OCpolygon, OCvertices, OCall_vertices
 
+            if event.button == 3 and OCpolygon is not None:
+                # Right-click to finish drawing the polygon
+                ax.add_patch(OCpolygon)
+                plt.draw()
+                OCall_vertices.append(OCvertices.copy())
+                OCvertices = []
+                OCpolygon = None
+            elif event.button == 1:
+                # Left-click to add a vertex
+                OCvertices.append((event.xdata, event.ydata))
+                if len(OCvertices) > 1:
+                    if OCpolygon is not None:
+                        OCpolygon.remove()
+                OCpolygon = Polygon(OCvertices, closed=True, edgecolor='b', facecolor='none')
+                ax.add_patch(OCpolygon)
+                plt.draw()
+
+        def on_close(event):
+            global OCall_vertices
+
+            if OCall_vertices:
+                gr = Graph(100, 100)
+                for vertices in OCall_vertices:
+                    for vertex in vertices:
+                        gr.addVertice(int(vertex[0]), -int(vertex[1]), BOUNDARY)
+                    for i in range(1, len(vertices)):
+                        gr.addEdge(int(vertices[i - 1][0]), -int(vertices[i - 1][1]), int(vertices[i][0]), -int(vertices[i][1]), WALL)
+                return gr
+
+        fig, ax = plt.subplots()
+        ax.set_xlim(0, 100)
+        ax.set_ylim(0, 100)
+        fig.canvas.mpl_connect('button_press_event', on_click)
+        fig.canvas.mpl_connect('close_event', on_close)
+        plt.title("Draw the Layout for the Art Gallery (left_click: Pen Down, right_click: Pen Up)")
+        plt.show()
+        return on_close(None)
+
+    
     
 class Vertex:
     def __init__(self,x_coord,y_coord,vertex_type):

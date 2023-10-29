@@ -281,7 +281,9 @@ for i in list_edges:
 
 
 #    case 2: from a text file containing the coordinates
-Graph.displayGraph(Graph.textGenerate(r"testInput.txt"))
+#Graph.displayGraph(Graph.textGenerate(r"testInput.txt"))
 
 # case 3 : based on drawing on a screen
 #lets do it using pygame(interactive screen)
+x = Graph.onClick()
+x.displayGraph()
