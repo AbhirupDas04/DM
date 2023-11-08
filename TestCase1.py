@@ -1,8 +1,7 @@
 from Graph_Library import *
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-import random
-from scipy.spatial import ConvexHull
+from Triangulation import Triangulation
 g1 = Graph(23,24)
 
 for i in range(25):
@@ -256,7 +255,7 @@ for i in list_edges:
 
 # print(g1.list_vertices[0][4].list_adj_vertices)
 
-#print(g1.list_edges)
+print(g1.list_vertices)
 #print(g1.test_bed)
 # for i in range(24):
 #     print(g1.test_bed[i])
@@ -278,6 +277,9 @@ for i in list_edges:
 
 
 #   Case 1:      rando
+# it  makes no sense to creat a rando input
+#just no algorithm to figure it out
+
 
 
 #    case 2: from a text file containing the coordinates
@@ -285,5 +287,23 @@ for i in list_edges:
 
 # case 3 : based on drawing on a screen
 #lets do it using pygame(interactive screen)
-x = Graph.onClick()
+'''
+x =Graph.onClick()
 x.displayGraph()
+print(x.list_edges)
+for i in x.list_vertices:
+    flag = 0
+    for j in i:
+        if j!=0:
+            flag =1
+            print(j,end= '   ')
+    if flag==1:
+        print()
+'''
+#lets create an algorithm for drawing the triangles
+dummylist = [[21,-83],[9,-71],[8 , -59],[20 , -73],[5 , -47],[12 , -47],[24 , -56],[4 , -25],[36 , -14],[72 , -31],[71 , -58],[71 , -77],[83 , -84],[82 , -89],[68 , -83],[64 , -92],[51 , -93],[48 , -83],[45 , -93],[51 , -96],[28 , -95],[19 , -92]]
+
+main_polygon, triangle_vertices = Triangulation.triangulate(dummylist)
+print(triangle_vertices)
+Triangulation.plot_polygon_and_triangles(main_polygon, triangle_vertices)
+
