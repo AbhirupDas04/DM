@@ -76,7 +76,7 @@ class Graph:
                 # Right-click to finish drawing the polygon
                 ax.add_patch(OCpolygon)
                 plt.draw()
-                OCall_vertices.append(OCvertices.copy())
+                OCall_vertices.append(OCvertices.copy()+[OCvertices[0]])
                 OCvertices = []
                 OCpolygon = None
             elif event.button == 1:
@@ -109,6 +109,8 @@ class Graph:
         plt.title("Draw the Layout for the Art Gallery (left_click: Pen Down, right_click: Pen Up)")
         plt.show()
         return on_close(None)
+    #def getList(self):
+
 
     
     
@@ -118,7 +120,8 @@ class Vertex:
         self.y_coord = y_coord
         self.list_adj_vertices = []
         self.vertex_type = vertex_type
-
+    def get(self):
+        return [self.y_coord, self.x_coord]
     def __str__(self):
         return f"[{self.y_coord} , {self.x_coord}]"
     
@@ -130,6 +133,7 @@ class Edge:
         self.vertex_1 = vertex_1
         self.vertex_2 = vertex_2
         self.edge_type = edge_type
-
+    def get(self):
+        return [self.vertex_1, self.vertex_2]
     def __repr__(self):
         return f"({self.vertex_1} - {self.vertex_2})"
