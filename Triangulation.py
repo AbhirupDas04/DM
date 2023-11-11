@@ -27,14 +27,12 @@ class Triangulation:
         for vertices in triangle_vertices:
             x, y = zip(*vertices)  
             ax.fill(x, y, alpha=0.5, color='green', edgecolor='black')
+            plt.title("After triangulating the Art Gallery")
         if guardPos:
             x, y = zip(*guardPos) 
             ax.scatter(x, y, color='red', marker='H', label='Guard Positions')
-
-
-        plt.xlabel('X')
-        plt.ylabel('Y')
-        plt.title('Main Polygon with Triangles (List of Vertices)')
+            plt.title("Optimal positions of Guards")
+        plt.axis('off')  
         plt.show()
     
     #for triangulating the polygon
@@ -238,4 +236,20 @@ class Triangulation:
             return b
         elif min_guards == len(c):
             return c
-    
+    def OptimizedGuardCount(vertList):
+        guardCountDict = {}
+        min_ = len(vertList)
+        for i in range(len(vertList)):
+            currCycle = vertList[i::]+vertList[:i]
+            main,triangleVert = Triangulation.triangulate(currCycle)
+            #Triangulation.plot_polygon_and_triangles(main,triangleVert)
+            a = Triangulation.count_guards(triangleVert)
+            if min_ >= len(a):
+                min_ = len(a)
+            print(min_)
+            if len(a) not in guardCountDict.keys():
+                guardCountDict[len(a)] = [a]
+            else:
+                guardCountDict[len(a)] = guardCountDict[len(a)] +[a]
+                print(a)
+        return main,triangleVert,guardCountDict[min_]
