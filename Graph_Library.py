@@ -109,7 +109,8 @@ class Graph:
         plt.title("Draw the Layout for the Art Gallery (left_click: Pen Down, right_click: Pen Up)")
         plt.show()
         return on_close(None)
-    #def getList(self):
+    def getList(self):
+        return [j.get()[0].get() for j in self.list_edges ]
 
 
     

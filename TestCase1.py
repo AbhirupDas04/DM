@@ -292,7 +292,7 @@ x =Graph.onClick()
 x.displayGraph()
 print(x.list_edges)
 
-vertList = [j.get()[0].get() for j in x.list_edges ]
+vertList = x.getList()
 '''
 vertList = []
 for i in x.list_edges:
@@ -300,11 +300,10 @@ for i in x.list_edges:
 
 print(vertList)
 #x.displayGraph()
-main,triangleVert = Triangulation.triangulate(vertList)
-Triangulation.plot_polygon_and_triangles(main,triangleVert)
-a = Triangulation.count_guards(triangleVert)
-print(a)
-Triangulation.plot_polygon_and_triangles(main,triangleVert,a)
+main,triangleVert,minGuardList = Triangulation.OptimizedGuardCount(vertList)
+print(minGuardList)
+for i in minGuardList:
+    Triangulation.plot_polygon_and_triangles(main,triangleVert,i)
 #lets create an algorithm for drawing the triangles
 
 '''
