@@ -246,7 +246,7 @@ list_edges.append([6,19,6,20,WALL])
 
 for i in range(3,6):
     list_edges.append([i,18,i+1,18,WALL])
-
+minGuardList = list_edges
 for i in range(3,6):
     list_edges.append([i,20,i+1,20,WALL])
 
@@ -290,20 +290,33 @@ for i in list_edges:
 
 x =Graph.onClick()
 x.displayGraph()
-print(x.list_edges)
+#print("Edges:",x.list_edges)
 
 vertList = x.getList()
 '''
-vertList = []
+vertList = []minGuardList
 for i in x.list_edges:
     vertList.append(i.get()[0].get())'''
 
-print(vertList)
+#print("Vertices:",vertList)
 #x.displayGraph()
-main,triangleVert,minGuardList = Triangulation.OptimizedGuardCount(vertList)
-print(minGuardList)
+main, triangleVert, minGuardList = Triangulation.OptimizedGuardCount(vertList)
+print("MINGUARDLIST:", minGuardList)
+
+# Create a list to store lists that occur twice
+duplicate_lists = [i for i in minGuardList if minGuardList.count(i) == 2]
+
+filtered_minGuardList = []
 for i in minGuardList:
-    Triangulation.plot_polygon_and_triangles(main,triangleVert,i)
+    if minGuardList.count(i) != 2:
+        filtered_minGuardList.append(i)
+
+# Print the updated minGuardList
+print("Updated MINGUARDLIST:", duplicate_lists)
+for i in filtered_minGuardList:
+    Triangulation.plot_polygon_and_triangles(main, triangleVert, i)
+
+
 #lets create an algorithm for drawing the triangles
 
 '''

@@ -40,12 +40,8 @@ class Triangulation:
         if len(dummylist) < 3:
             print("Insufficient plots")
             return None
+
         main_poly = Polygon(dummylist)
-        '''
-        fig,ax = plt.subplots()
-        x,y = main_poly.exterior.xy
-        ax.fill(x,y, alpha=0.5, color='blue', edgecolor='black')
-        plt.show()'''
         triangles = []
 
         while len(dummylist) > 2:
@@ -53,19 +49,49 @@ class Triangulation:
                 prev = dummylist[i - 1]
                 curr = dummylist[i]
                 next = dummylist[(i + 1) % len(dummylist)]
-                ear = Polygon([prev, curr, next])
-                if main_poly.contains(ear):
-                    triangles.append(ear)
+
+                # Check for duplicate vertices
+                if (prev, curr, next) in triangles:
                     dummylist.pop(i)
                     break
 
+                try:
+                    m = (prev[1] - curr[1]) / (prev[0] - curr[0])
+                    n = (curr[1] - next[1]) / (curr[0] - next[0])
+                    if m == n:
+                        dummylist.pop(i)
+                        break
+                except ZeroDivisionError:
+                    if (prev[0] == curr[0] and next[0] == curr[0]) or (prev[1] == curr[1] and next[1] == curr[1]):
+                        dummylist.pop(i)
+                        break
+
+                ear = Polygon([prev, curr, next])
+                if main_poly.contains(ear):
+                    triangles.append((prev, curr, next))
+                    dummylist.pop(i)
+                    break
+                else:
+                    if len(dummylist) == 3:
+                        break
+
         for triangle in triangles:
-            main_poly = main_poly.difference(triangle)
+            main_poly = main_poly.difference(Polygon(triangle))
 
         # Extract vertices from each triangle and store them in a list
-        triangle_vertices = []
-        for triangle in triangles:
-            triangle_vertices.append(list(triangle.exterior.coords))
+        triangle_vertices = [list(triangle) for triangle in triangles]
+
+        # Plot the triangles
+        #fig, ax = plt.subplots()
+        #x, y = main_poly.exterior.xy
+        #ax.fill(x, y, alpha=0.5, color='blue', edgecolor='black')
+
+        #for triangle in triangle_vertices:
+        #    triangle.append(triangle[0])  # Close the triangle
+        #    x, y = zip(*triangle)
+        #   ax.plot(x, y, color='red')
+
+        #plt.show()
 
         return main_poly, triangle_vertices
     
@@ -246,10 +272,13 @@ class Triangulation:
             a = Triangulation.count_guards(triangleVert)
             if min_ >= len(a):
                 min_ = len(a)
-            print(min_)
+            #print(min_)
             if len(a) not in guardCountDict.keys():
                 guardCountDict[len(a)] = [a]
             else:
                 guardCountDict[len(a)] = guardCountDict[len(a)] +[a]
-                print(a)
+                #print(a)
+        #for i in guardCountDict.keys():
+        #    print("Guard count",i)
+        #   print("\t\t",guardCountDict[i])
         return main,triangleVert,guardCountDict[min_]
