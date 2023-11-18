@@ -18,7 +18,7 @@ class Triangulation:
     # for showing a plot diagram of the triangulated polygon
     def plot_polygon_and_triangles(main_polygon, triangle_vertices,guardPos=[]):
         fig, ax = plt.subplots()
-
+        print(guardPos)
         # Plot the main polygon
         x, y = main_polygon.exterior.xy
         ax.fill(x, y, alpha=0.5, color='blue', edgecolor='black')
@@ -80,19 +80,7 @@ class Triangulation:
 
         # Extract vertices from each triangle and store them in a list
         triangle_vertices = [list(triangle) for triangle in triangles]
-
-        # Plot the triangles
-        #fig, ax = plt.subplots()
-        #x, y = main_poly.exterior.xy
-        #ax.fill(x, y, alpha=0.5, color='blue', edgecolor='black')
-
-        #for triangle in triangle_vertices:
-        #    triangle.append(triangle[0])  # Close the triangle
-        #    x, y = zip(*triangle)
-        #   ax.plot(x, y, color='red')
-
-        #plt.show()
-
+        
         return main_poly, triangle_vertices
     
     #for counting the number of gaurds and their location in the polygon

@@ -303,18 +303,38 @@ for i in x.list_edges:
 main, triangleVert, minGuardList = Triangulation.OptimizedGuardCount(vertList)
 print("MINGUARDLIST:", minGuardList)
 
-# Create a list to store lists that occur twice
-duplicate_lists = [i for i in minGuardList if minGuardList.count(i) == 2]
+if len(minGuardList) == 1:
+    Triangulation.plot_polygon_and_triangles(main, triangleVert, minGuardList[0])
 
+'''
 filtered_minGuardList = []
+minGuardList = [tuple(item) for sublist in minGuardList for item in sublist]  # Flatten the sublists and convert to tuples
+minGuardList = [set(i) for i in minGuardList]
 for i in minGuardList:
-    if minGuardList.count(i) != 2:
+    if minGuardList.count(i) == 2 and (i not in filtered_minGuardList):
         filtered_minGuardList.append(i)
-
-# Print the updated minGuardList
-print("Updated MINGUARDLIST:", duplicate_lists)
-for i in filtered_minGuardList:
-    Triangulation.plot_polygon_and_triangles(main, triangleVert, i)
+'''
+#making list of list of tuples
+if len(minGuardList) == 1:
+    Triangulation.plot_polygon_and_triangles(main,triangleVert,minGuardList[0])
+else:    
+    for i in range(len(minGuardList)):
+        points = []
+        for j in minGuardList[i]:
+            points.append((j[0],j[1]))
+        minGuardList[i] = points
+    minGuardList = [set(i) for i in minGuardList]
+    print('minGuardList: ',minGuardList,"\n\n")
+    filtered_minGuardList = []
+    for i in minGuardList:
+        if minGuardList.count(i) >= 2 and (i not in filtered_minGuardList):
+            #print("\t\t",i)
+            filtered_minGuardList.append(i)
+            
+    # Print the updated minGuardList
+    print("Updated MINGUARDLIST:", filtered_minGuardList)
+    for i in filtered_minGuardList:
+        Triangulation.plot_polygon_and_triangles(main, triangleVert, list(i))  # Convert back to list for plotting
 
 
 #lets create an algorithm for drawing the triangles

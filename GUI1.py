@@ -79,7 +79,6 @@ class GUI:
         self.mainPolygon = Graph.onClick()
         print(self.mainPolygon.list_edges)
         self.preview()
-        print('b')
     
     def txtGenerate(self):
         self.path = askopenfilename()
