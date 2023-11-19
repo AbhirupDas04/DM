@@ -1,13 +1,4 @@
 
-'''
-from shapely.geometry import Polygon
-
-polya = Polygon([(0, 0), (0, 1), (1, 1), (1, 0)]) 
-polyb = Polygon([(0.5, 0.5), (0.5, 0.8), (0.8, 0.8), (0.8, 0.5)]) 
-
-polya.contains(polyb)
-https://stackoverflow.com/questions/55840924/how-to-judge-if-a-polygon-is-inside-another-polygon-in-python
-'''
 
 
 from shapely.geometry import Polygon
@@ -84,7 +75,7 @@ class Triangulation:
         return main_poly, triangle_vertices
     
     #for counting the number of gaurds and their location in the polygon
-
+    # returns the list of optimal positons for the Guards
     def count_guards(triangle_vertices):
         a=[]
         b=[]
@@ -250,6 +241,8 @@ class Triangulation:
             return b
         elif min_guards == len(c):
             return c
+
+    # Returns a list of optimal positions for the guards by starting triangulation from each and every point on the vertice list. 
     def OptimizedGuardCount(vertList):
         guardCountDict = {}
         min_ = len(vertList)
