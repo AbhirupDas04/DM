@@ -168,10 +168,17 @@ Edge
  - tkinter : pip install tkinter
 
 ## Execution
- - for executing from terminal please change directory into the **DM-main** directory and from there run- 
- **python main.py**
+ - for executing from terminal please change directory into the **inner** 'DM-main' directory and from there run- 
+ **python main.py** / **python3 main.py**
+ - Do not use WSL for runninbg the code as Pillow library is not available for it.
  - for running through IDE make sure to be running from the correct directory (**DM-main**)
- - A sample input_text file is also provided (**testInput.txt**) for trial running the .txt generate button from the GUI. 
+ - After successfully running the main.py a GUI screen appears containing a Preview Screen, OnClick button, txt Generate button, Clear button, Generate Button and a Quit button
+ - Upon clicking the OnClick button two screens get produced labeled as Screen1 and Screen2,the user can draw on screen2 using mouse clicks [left click to place the point, and once after done drawing right click to complete the shape and then closing both the Screens the drawn shape will appear on the previewFrame.]
+ - Upon clicking the txtGenerate button a pop-up files dialogbox will open where you can select your desired .txt file containing the valid formate are present. [A sample input_text file is also provided (**testInput.txt**) for trial running the .txt generate button from the GUI.]
+ - inorder to clear the current shape from the systsem and create in a new shape the user can click the Clear button.
+ - Inorder to generate the positions for the minimum number of guards the user has to click Generate button that will create a screen with the desired output.
+ - The quit button is used for closing the GUI and ending the entire code.
+  
 ## Contributors
  - Abhirup Das [2022019]
  - Hemanth Dindigallu [2022212]
