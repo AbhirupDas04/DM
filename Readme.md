@@ -171,13 +171,19 @@ Edge
  - for executing from terminal please change directory into the **inner** 'DM-main' directory and from there run- 
  **python main.py** / **python3 main.py**
  - Do not use WSL for runninbg the code as Pillow library is not available for it.
+   
  - for running through IDE make sure to be running from the correct directory (**DM-main**)
- - After successfully running the main.py a GUI screen appears containing a Preview Screen, OnClick button, txt Generate button, Clear button, Generate Button and a Quit button
- - If you wan to generate the shape using mous click please click the OnClick button two screens get produced labeled as Screen1 and Screen2,the user can draw on screen2 using mouse clicks [left click to place the point, and once after done drawing right click to complete the shape and then closing both the Screens the drawn shape will appear on the previewFrame.]
- - Inorder to generte using a text file containing valid format please click the txtGenerate button a pop-up files dialogbox will open where you can select your desired .txt file containing the valid formate are present. [A sample input_text file is also provided (**testInput.txt**) for trial running the .txt generate button from the GUI.]
- - inorder to clear the current shape from the systsem and create in a new shape the user can click the Clear button.
- - Inorder to generate the positions for the minimum number of guards the user has to click Generate button that will create a screen with the desired output.
- - The quit button is used for closing the GUI and ending the entire code.
+   
+ - After successfully running the main.py a GUI screen appears containing a Preview Screen, OnClick button, txt Generate button, Clear button, Generate Button and a Quit button.
+   
+ - If you want to generate the shape using mouse click, please click the 'OnClick' button. Two screens get produced labeled as Screen1 and Screen2, the user can draw on screen2 using mouse clicks [left click to place the point, and once you are done drawing, right click to complete the shape. Then close the screen. Another blank screen appears which you ought to close as well. Now hit Generate on the original GUI screen.
+ 
+ - The generated polygon/art gallery with the optimal positioning of the guards are displayed [Note: The graph that is displayed is a reflection on the x-axis, don't be surprised that the graph looks inverted.]. All the possible outputs for the provided graphs are displayed after the previous displayed output has been closed by the user by clicking the 'X'.
+   
+ - If you want to use the code again, press 'clear' and proceed with the same steps as before. If not, click 'quit' to exit/terminate the program. 
+   
+ - Inorder to generate using a text file (containing the valid format) please click the 'txtGenerate' button, a pop-up files dialogbox will open where you can select your desired **'.txt' file** containing the valid format is present. [A sample input_text file is also provided (**testInput.txt**) for trial running the .txt generate button from the GUI.]
+   
   
 ## Contributors
  - Abhirup Das [2022019]
