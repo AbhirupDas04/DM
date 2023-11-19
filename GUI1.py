@@ -71,17 +71,17 @@ class GUI:
     # Function for initializing the onClick() function from the Graph library
     def OnClick(self):
         self.mainPolygon = Graph.onClick()
-        print(self.mainPolygon.list_edges)
+        #print(self.mainPolygon.list_edges)
         self.preview()
         
     # Function for initializing the textGenerate() function from the Graph library
     def txtGenerate(self):
         self.path = askopenfilename()
-        print(self.path)
+        #print(self.path)
         if self.path == '':
             return 
         self.mainPolygon = Graph.textGenerate(self.path)
-        print(self.mainPolygon.list_edges)
+        #print(self.mainPolygon.list_edges)
         self.preview()
 
         
@@ -100,9 +100,9 @@ class GUI:
 
     # Function for generating the triangulation and finding the optimal positions for the guards using Triangulation.OptimizedGuardCount
     def Generate(self):
-        if self.mainPolygon:
+        #if self.mainPolygon:
             self.vertList = self.mainPolygon.getList()
-            print(self.vertList)
+            #print(self.vertList)
             main, self.triangleVerts, self.minGuardList = Triangulation.OptimizedGuardCount(self.vertList)
             if len(self.minGuardList) == 1:
                 Triangulation.plot_polygon_and_triangles(main, self.triangleVerts, self.minGuardList[0])
@@ -112,10 +112,14 @@ class GUI:
                     points.append((j[0],j[1]))
                 self.minGuardList[i] = points
             self.minGuardList = [set(i) for i in self.minGuardList]
-            print(self.minGuardList)
+            #print(self.minGuardList)
             for i in self.minGuardList:
                 if self.minGuardList.count(i) >= 2 and (i not in self.filtered_minGuardList):
                     self.filtered_minGuardList.append(i)
-            print("Updated MINGUARDLIST:", self.filtered_minGuardList)
-            for i in self.filtered_minGuardList:
-                Triangulation.plot_polygon_and_triangles(main, self.triangleVerts, list(i))  
+            #print("Updated MINGUARDLIST:", self.filtered_minGuardList)
+            if(self.filtered_minGuardList != []):
+                for i in self.filtered_minGuardList:
+                    Triangulation.plot_polygon_and_triangles(main, self.triangleVerts,i)  
+            else:
+                for i in self.minGuardList:
+                    Triangulation.plot_polygon_and_triangles(main, self.triangleVerts, i)
