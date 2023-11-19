@@ -13,13 +13,14 @@ class Graph:
         self.list_vertices = [[0 for i in range(max_breadth+1)] for j in range(max_length+1)]
         self.test_bed = [[' ' for i in range(max_breadth+1)] for j in range(max_length+1)]
 
+    # Function for adding vertices
     def addVertice(self,x1,y1,vertex_type):
         if(self.list_vertices[y1][x1] != 0):
             return -1
         else:
             self.list_vertices[y1][x1] = Vertex(y1,x1,vertex_type)
             self.test_bed[y1][x1] = '1'
-
+    # Function for ading an edge
     def addEdge(self,x1,y1,x2,y2,edge_type):
         if(self.list_vertices[y1][x1] == 0 or self.list_vertices[y2][x2] == 0):
             return -1
@@ -31,6 +32,8 @@ class Graph:
         self.list_edges.append(edge)
         self.list_vertices[y1][x1].list_adj_vertices.append(self.list_vertices[y2][x2])
         self.list_vertices[y2][x2].list_adj_vertices.append(self.list_vertices[y1][x1])
+        
+    # Function for displaying the graph
     def displayGraph(self):
         plt.title('Art Gallery')
         for edge in self.list_edges:
@@ -41,6 +44,7 @@ class Graph:
             plt.plot([x1, x2], [y1, y2], c='g', linewidth=1)
         plt.axis('off')
         plt.show()
+    # Function for generating code using a text file as input    
     def textGenerate(path):
         
         with open(path,'r') as file:
@@ -54,7 +58,6 @@ class Graph:
         max_length = max(y)
         max_breadth = max(x)
         gr = Graph(max_length, max_breadth)
-        #print(gr.test_bed)
         for i in range(len(x)):
             gr.addVertice(x[i], y[i], BOUNDARY)
             if i > 0:
@@ -62,6 +65,7 @@ class Graph:
             if i == len(x) - 1:
                 gr.addEdge(x[i], y[i], x[0], y[0], WALL)
         return gr
+    # Function for genrating using Graph using mouse clicks    
     def onClick():
         global OCvertices, OCpolygon, OCall_vertices
 
@@ -109,6 +113,7 @@ class Graph:
         plt.title("Draw the Layout for the Art Gallery (left_click: Pen Down, right_click: Pen Up)")
         plt.show()
         return on_close(None)
+    # function to return list of vertices    
     def getList(self):
         return [j.get()[0].get() for j in self.list_edges ]
 
