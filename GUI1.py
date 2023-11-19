@@ -58,10 +58,6 @@ class GUI:
 
         # Plot the mainPolygon
         if self.mainPolygon:
-            '''
-            polygon = Polygon(self.mainPolygon.list_vertices)
-            x, y = polygon.exterior.xy
-            self.ax.plot(x, y, color='blue', linewidth=2, alpha=0.7)'''
             for edge in self.mainPolygon.list_edges:
                 x1 = edge.vertex_1.y_coord
                 y1 = -edge.vertex_1.x_coord 
