@@ -28,10 +28,6 @@ class GUI:
         self.icon = ImageTk.PhotoImage(Image.open('icon.png'))
         root.iconphoto(False,self.icon)
         self.mainCanvas = tkinter.Canvas(root,bg = '#363636',width=400,height=600,highlightthickness=0)
-
-        #self.previewCanvas = tkinter.Canvas(root,bg = '#ffffff',width='350',height=400,highlightthickness=1)
-        #self.previewCanvas.place(x=25,y=10)
-        # lets try to use frames to embed the matplotlib into the screen and update it live time
         self.previewFrame = tkinter.Frame(root,bg = '#4d4c4c',width=300,height=450,borderwidth=1)
         self.previewFrame.place(x=25,y=10)
         self.fig, self.ax = plt.subplots(figsize=(3.5,4), tight_layout=True)
@@ -56,6 +52,7 @@ class GUI:
 
         self.mainCanvas.pack(fill='both',expand=True)
 
+    #function for displaying the current graph onto the previewFrame 
     def preview(self):
         self.ax.clear()
 
@@ -75,11 +72,13 @@ class GUI:
         self.ax.set_title('Preview')
         self.canvas.draw()
 
+    # Function for initializing the onClick() function from the Graph library
     def OnClick(self):
         self.mainPolygon = Graph.onClick()
         print(self.mainPolygon.list_edges)
         self.preview()
-    
+        
+    # Function for initializing the textGenerate() function from the Graph library
     def txtGenerate(self):
         self.path = askopenfilename()
         print(self.path)
@@ -90,7 +89,7 @@ class GUI:
         self.preview()
 
         
-    
+    # Function for clearing the current selection
     def clear(self):
         self.mainPolygon = ''
         self.path = ''
@@ -103,6 +102,7 @@ class GUI:
         self.ax.set_title('Preview')
         self.canvas.draw()
 
+    # Function for generating the triangulation and finding the optimal positions for the guards using Triangulation.OptimizedGuardCount
     def Generate(self):
         if self.mainPolygon:
             self.vertList = self.mainPolygon.getList()
