@@ -144,7 +144,7 @@ Edge
  - User doesn't provide multiple gallery in the same screen while using onClick()
  - User provides valid points for the gallery when using textGenerate() 
  - User runs the code from the DM-main directory and no other directory orelse it will lead to a file not found error.
- - 
+ - Our code can give the right number and placement of the guards upto 80% of the times. [Reason: During the selection for the three colouring, if we select a particular vertex and triangulate from it, and iterate through all vertices, but at times the selection doesnt happen optimally, hence causing the code to place the guard at ther wrong position.]
 
 ## Reference
  -  https://en-academic.com/dic.nsf/enwiki/712109
